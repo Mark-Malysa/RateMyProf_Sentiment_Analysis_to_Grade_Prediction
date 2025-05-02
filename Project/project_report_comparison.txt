@@ -1,0 +1,84 @@
+Project Report: Model Comparison – Random Forest, Gradient Boosting, and Neural Network for Grade Prediction
+
+---
+
+Introduction:
+
+This report compares three machine learning approaches—Random Forest, Gradient Boosting, and Neural Network—for predicting student grades from professor/course reviews. Each method uses the same data pipeline: sentiment analysis on review text, feature engineering, and regression modeling to predict grades. The models are evaluated on the same train/test splits, and their results, feature importances, and practical implications are compared.
+
+---
+
+Summary of Methods:
+
+- **Random Forest (main.py):** Ensemble of decision trees, robust to overfitting, provides feature importances.
+- **Gradient Boosting (main_gb.py):** Sequential ensemble of trees, often achieves higher accuracy, provides feature importances.
+- **Neural Network (main_nn.py):** Multi-layer perceptron (MLPRegressor), can model complex relationships, but less interpretable.
+
+All models use the same features: rating, difficulty, sentiment score, review count, average rating, and average difficulty.
+
+---
+
+Performance Comparison:
+
+| Model            | Train RMSE | Test RMSE | Test MAE | Test R²  |
+|------------------|------------|-----------|----------|----------|
+| Random Forest    | ~0.098     | ~0.259    | ~0.144   | -0.085   |
+| Gradient Boosting| 0.208      | 0.254     | 0.127    | -0.046   |
+| Neural Network   | 0.232      | 0.280     | 0.178    | -0.266   |
+
+- **Gradient Boosting** achieved the lowest test RMSE and MAE, and the least negative R², indicating slightly better generalization.
+- **Random Forest** performed similarly, with slightly higher error and more overfitting (lower train RMSE).
+- **Neural Network** had the highest test RMSE and most negative R², indicating the weakest generalization on this dataset.
+
+All models had negative R² on the test set, meaning they did not explain variance better than the mean. This suggests the features or data may not be sufficient for strong grade prediction.
+
+---
+
+Feature Importance:
+
+| Feature           | RF (est.) | GB        | NN        |
+|-------------------|-----------|-----------|-----------|
+| sentiment_score   | (high)    | 0.26      | 0.00      |
+| rating            | (high)    | 0.20      | 0.00      |
+| avg_rating        | (medium)  | 0.17      | 0.00      |
+| avg_difficulty    | (medium)  | 0.14      | 0.00      |
+| difficulty        | (medium)  | 0.13      | 0.00      |
+| review_count      | (low)     | 0.10      | 0.00      |
+
+- **Gradient Boosting** and (by extension) Random Forest highlight sentiment_score and rating as the most important predictors.
+- **Neural Network** (MLPRegressor) does not provide feature importances; all are reported as zero.
+
+---
+
+Interpretability:
+
+- **Random Forest and Gradient Boosting** provide clear feature importances, aiding interpretability and actionable insights.
+- **Neural Network** lacks built-in interpretability, making it harder to understand which features drive predictions.
+
+---
+
+Practical Implications:
+
+- **Gradient Boosting** is the best choice for this dataset, balancing accuracy and interpretability.
+- **Random Forest** is a strong alternative, especially if overfitting is less of a concern.
+- **Neural Network** may require more data, feature engineering, or hyperparameter tuning to be competitive, and is less interpretable.
+
+---
+
+Discussion and Future Work:
+
+- All models struggled to generalize (R² < 0), suggesting the need for more or better features, more data, or alternative modeling approaches.
+- Sentiment and rating are consistently important predictors, supporting the value of sentiment analysis in educational data mining.
+- Future work could include:
+  - Feature engineering (e.g., text embeddings, more granular sentiment analysis)
+  - Addressing class imbalance
+  - Model ensembling or stacking
+  - Using interpretability tools for neural networks (e.g., SHAP, permutation importance)
+
+---
+
+Conclusion:
+
+Gradient Boosting performed best on this dataset, but all models highlight the challenge of predicting grades from review data alone. Sentiment analysis adds value, but further work is needed to improve predictive power and generalization.
+
+(End of Comparison Report) 

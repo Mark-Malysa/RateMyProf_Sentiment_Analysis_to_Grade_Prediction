@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Data and model outputs
+data/
+models/
+visualizations/
+visualizations_gb/
+visualizations_nn/
+datasets/
+
+# Large or generated files
+*.pkl
+*.csv
+*.json
+*.zip
+*.png
+.DS_Store
+
+# Allowlist for important files
+!requirements.txt
+!README.md
+!main.py
+!main_gb.py
+!main_nn.py
+!project_report*.txt
+!src/
+!notebooks/ 

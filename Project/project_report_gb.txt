@@ -1,0 +1,120 @@
+Project Report: Sentiment and Grade Prediction from Professor Reviews (Gradient Boosting)
+
+---
+
+Introduction:
+
+**What problem are you solving?**
+This project aims to predict student grade outcomes and analyze sentiment from professor/course reviews. The goal is to use natural language processing and machine learning to extract sentiment from review text and use it, along with other features, to predict the grades students are likely to receive in a course.
+
+**How do you plan to solve it?**
+We use a supervised learning approach. First, we preprocess and clean the review data, then train a sentiment analysis model to classify review sentiment. The sentiment scores, along with other features (e.g., rating, difficulty, professor-level stats), are used to train a Gradient Boosting regression model to predict grades. The pipeline includes data collection, preprocessing, sentiment analysis, grade prediction, and visualization.
+
+**How does this approach relate to the lectures/papers we discussed?**
+This approach leverages concepts from supervised learning, text preprocessing, feature engineering, and model evaluation, as discussed in class. It also draws on literature about using sentiment analysis and regression for educational data mining.
+
+---
+
+Motivation:
+
+**Why is your project important? Why are you excited about it?**
+Understanding how student perceptions (sentiment) and course/professor features relate to grade outcomes can help students make informed course choices and help institutions improve teaching. The project is exciting because it combines NLP, machine learning, and real-world educational data.
+
+**What are some existing questions in the area?**
+- How do subjective student reviews relate to objective outcomes like grades?
+- Can sentiment analysis improve grade prediction models?
+- What features are most predictive of student success?
+
+**Are there any prior related works? Provide a brief summary.**
+Prior work includes educational data mining using regression and classification to predict grades, and sentiment analysis of course reviews to understand student satisfaction. This project extends these by combining both approaches.
+
+---
+
+Method:
+
+**What dataset did you use?**
+The dataset consists of professor/course reviews scraped from RateMyProfessors and similar sources, stored in JSON and CSV files. The data includes review text, ratings, difficulty, grades, professor names, departments, and other metadata.
+
+**What form does this data have? Is it images, raw text, tabular, etc? What are the features?**
+The data is tabular, with both structured (numerical/categorical) and unstructured (text) features. Key features:
+- rating (numerical)
+- difficulty (numerical)
+- grade (categorical/converted to numerical)
+- text (raw review text)
+- cleaned_text (preprocessed text)
+- professor_name, department, etc.
+
+**What kind of model did you use?**
+- Sentiment Analysis: Naive Bayes classifier on TF-IDF features from cleaned review text.
+- Grade Prediction: Gradient Boosting Regressor using rating, difficulty, sentiment score, and professor-level features.
+
+**How did you define the problem/feature space?**
+- Sentiment is defined as binary (positive/negative) based on rating threshold.
+- Grade prediction uses both review features and aggregated professor stats.
+
+**What would be your implementation steps? How will you evaluate your method?**
+1. Data collection and splitting into train/test sets.
+2. Preprocessing: cleaning text, handling missing values, mapping grades.
+3. Sentiment model training and evaluation (accuracy, F1, classification report).
+4. Adding sentiment scores to data.
+5. Grade prediction model training and evaluation (RMSE, MAE, R2).
+6. Visualization of results and feature importance.
+
+**How will you test and measure success?**
+- Sentiment: Accuracy, F1 score, classification report on test set.
+- Grade prediction: RMSE, MAE, R2 on test set. Feature importance analysis.
+
+---
+
+Results:
+
+**How did your model perform?**
+- Sentiment Analysis (Naive Bayes):
+  - Training Accuracy: 0.7370, F1 Score: 0.8446
+  - Test Accuracy: 0.8000, F1 Score: 0.8880
+  - Classification report shows high recall for positive sentiment, lower for negative (class imbalance).
+- Grade Prediction (Gradient Boosting):
+  - Training RMSE: 0.208
+  - Test RMSE: 0.254
+  - Test MAE: 0.127
+  - Test R2: -0.046 (model explains little variance on test set)
+
+**Feature Importance (from Gradient Boosting):**
+- sentiment_score: 0.26
+- rating: 0.20
+- avg_rating: 0.17
+- avg_difficulty: 0.14
+- difficulty: 0.13
+- review_count: 0.10
+
+**Visualizations:**
+- Sentiment distribution: Shows the spread of predicted sentiment scores.
+- Grade correlation: Scatterplot of sentiment score vs. grade.
+- Difficulty vs. rating: Relationship between perceived difficulty and rating.
+- Department comparison: Boxplot of ratings by department.
+- Feature importance: Barplot of model feature importances.
+- Correlation matrices: Heatmaps of feature correlations.
+
+---
+
+Discussion:
+
+**What outcome did you expect from your results?**
+Expected that sentiment and ratings would be strong predictors of grades, and that the model would generalize well to test data.
+
+**How did your actual results differ from your expected results?**
+- Sentiment model performed well, but grade prediction model had low R2 on test set, indicating limited generalization.
+- Feature importance shows sentiment is a strong predictor, but other features also matter.
+- Visualizations confirm relationships but also show noise and variability in the data.
+
+**How does this method compare to existing methods?**
+- Gradient Boosting performed slightly better than Random Forest and Neural Network on this dataset, but all models struggled to generalize (R2 < 0).
+
+**What new questions do these results raise, and how can they be addressed by further analysis?**
+- How can we improve grade prediction (more features, better models)?
+- How does sentiment interact with other features (e.g., department, professor)?
+- Can we address class imbalance in sentiment labels?
+
+---
+
+(End of Report) 
