@@ -6,8 +6,6 @@ __pycache__/
 venv/
 
 # Data and model outputs
-data/
-models/
 visualizations/
 visualizations_gb/
 visualizations_nn/
