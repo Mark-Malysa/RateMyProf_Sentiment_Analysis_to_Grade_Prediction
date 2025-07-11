@@ -6,7 +6,6 @@ __pycache__/
 venv/
 
 # Data and model outputs
-
 visualizations_gb/
 visualizations_nn/
 datasets/
