@@ -28,3 +28,4 @@ datasets/
 !src/
 !notebooks/ 
 !data/
+!Project/data
