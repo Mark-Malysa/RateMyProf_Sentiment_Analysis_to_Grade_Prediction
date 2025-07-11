@@ -8,7 +8,6 @@ venv/
 # Data and model outputs
 visualizations_gb/
 visualizations_nn/
-datasets/
 
 # Large or generated files
 *.pkl
