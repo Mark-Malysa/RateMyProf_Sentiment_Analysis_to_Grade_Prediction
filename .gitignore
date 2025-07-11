@@ -1,30 +1,21 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-
 # Virtual environment
 venv/
+env/
+ENV/
 
-# Data and model outputs
-visualizations_gb/
-visualizations_nn/
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Large or generated files
-*.pkl
-*.csv
-*.json
-*.zip
-*.png
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS system files
 .DS_Store
 
-# Allowlist for important files
-!requirements.txt
-!README.md
-!main.py
-!main_gb.py
-!main_nn.py
-!project_report*.txt
-!src/
-!notebooks/ 
-!data/
-!Project/data
+# IDE files (optional - uncomment if you want to ignore these)
+# .vscode/
+# .idea/
+# *.swp
+# *.swo
