@@ -1,360 +1,344 @@
-# RateMyProfessor Sentiment Analysis to Grade Prediction
+<![CDATA[<div align="center">
 
-## 🎯 Project Overview
+# 🎓 RateMyProfessor Sentiment Analysis & Grade Prediction
 
-This project explores the relationship between student sentiment in professor reviews and academic outcomes by combining **Natural Language Processing (NLP)** and **Machine Learning** techniques. The goal is to understand whether sentiment analysis of student reviews can provide meaningful insights for predicting grade outcomes and improving educational decision-making.
+**An end-to-end ML pipeline combining NLP sentiment analysis with predictive modeling**
 
-### Research Question
-*"Using sentiment analysis, what meaningful insights can be extracted from reviews of professors made by students, and to what extent can these insights be used to predict/recommend grading patterns and course recommendations?"*
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.4.0-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![Pandas](https://img.shields.io/badge/Pandas-2.2.0-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org)
+[![NLTK](https://img.shields.io/badge/NLTK-3.8.1-154f3c?style=for-the-badge)](https://nltk.org)
 
-## 💡 Personal Motivation & Inspiration
+[Overview](#-overview) • [Architecture](#-architecture) • [Results](#-results) • [Quick Start](#-quick-start) • [Key Learnings](#-key-learnings)
 
-### Why This Project Matters to Me
-
-As a student navigating the complex landscape of higher education, I've often found myself relying on peer reviews and professor ratings to make crucial academic decisions. The question of whether these subjective opinions could translate into objective predictions about academic outcomes has always fascinated me. This project represents my journey to bridge the gap between qualitative student feedback and quantitative academic performance.
-
-### The Problem I Wanted to Solve
-
-**The Challenge**: Every semester, students face the daunting task of choosing courses and professors with limited information. While platforms like RateMyProfessor provide valuable insights, they often present information in isolation - ratings, difficulty levels, and text reviews exist separately without clear connections to actual academic outcomes.
-
-**My Vision**: I wanted to create a system that could:
-- **Extract meaningful patterns** from the emotional content of student reviews
-- **Predict academic outcomes** based on sentiment analysis and other features
-- **Provide actionable insights** for both students and educational institutions
-- **Bridge the gap** between subjective feedback and objective performance metrics
-
-### What Drove My Research
-
-1. **Personal Experience**: Having made course decisions based on reviews that didn't always align with my actual experience, I wanted to understand if there were hidden patterns in the language students use.
-
-2. **Educational Technology Gap**: Despite the wealth of review data available, there was limited research combining sentiment analysis with grade prediction in educational contexts.
-
-3. **Practical Impact**: I wanted to create something that could genuinely help students make better-informed decisions about their academic journey.
-
-4. **Technical Curiosity**: The intersection of NLP, machine learning, and educational data mining presented an exciting technical challenge that combined multiple areas of interest.
-
-### The Journey and Learning Process
-
-This project evolved from a simple question: *"Can we predict how well a student will do in a course based on what other students say about the professor?"*
-
-**Initial Hypothesis**: I believed that sentiment analysis of reviews would be a strong predictor of grade outcomes, as positive sentiment might correlate with better learning experiences and higher grades.
-
-**What I Discovered**: The reality was more nuanced. While sentiment analysis achieved 80% accuracy in classifying review sentiment, the relationship between sentiment and grades was complex. The project revealed that:
-- Sentiment scores are indeed important predictors (26% feature importance)
-- But other factors like course rating and difficulty also play crucial roles
-- The challenge of predicting grades from review data alone is more complex than initially anticipated
-
-### Broader Implications
-
-This project has broader implications beyond just course selection:
-
-1. **Educational Data Mining**: Demonstrates how machine learning can extract insights from educational feedback
-2. **Student Success**: Provides tools for predicting and potentially improving student outcomes
-3. **Institutional Improvement**: Offers insights that could help institutions enhance teaching quality
-4. **Research Methodology**: Shows the value of combining qualitative and quantitative analysis in educational research
-
-### What I Learned About Myself
-
-Through this project, I discovered:
-- **Passion for Educational Technology**: The intersection of education and technology is where I want to focus my career
-- **Problem-Solving Skills**: How to break down complex problems into manageable components
-- **Technical Growth**: Significant improvement in machine learning, NLP, and data science skills
-- **Research Persistence**: The importance of iterating and refining approaches when initial hypotheses don't pan out as expected
-
-This project represents not just an academic exercise, but a personal mission to make education more transparent and data-driven. It's my contribution to the growing field of educational technology and my attempt to help future students make better-informed decisions about their academic journey.
-
-## 🚀 Purpose & Motivation
-
-### Why This Matters
-- **Student Decision Making**: Help students make informed course choices based on sentiment analysis of peer reviews
-- **Institutional Improvement**: Provide insights for educational institutions to enhance teaching quality
-- **Educational Data Mining**: Advance the field of using NLP and ML in educational contexts
-- **Predictive Analytics**: Demonstrate the potential of sentiment analysis for academic outcome prediction
-
-### Key Insights Discovered
-- **Sentiment Score** emerged as the most important predictor of grades (26% feature importance)
-- **Course Rating** and **Difficulty** are strong secondary predictors
-- **Gradient Boosting** performed best among three tested models (Random Forest, Neural Network)
-- Sentiment analysis achieved **80% accuracy** on test data, showing strong predictive capability
-
-## 🤖 Machine Learning Approach
-
-### Supervised Learning Pipeline
-
-This project implements a **two-stage supervised learning pipeline**:
-
-#### **Stage 1: Sentiment Classification (Binary Classification)**
-- **Problem**: Classify student reviews as positive or negative sentiment
-- **Algorithm**: Naive Bayes Classifier with TF-IDF vectorization
-- **Features**: Preprocessed text from student reviews
-- **Labels**: Binary sentiment (positive/negative) based on rating thresholds
-- **Performance**: 80% accuracy, 88% F1-score on test data
-
-#### **Stage 2: Grade Prediction (Regression)**
-- **Problem**: Predict numerical grade outcomes from review features
-- **Algorithms**: Three different approaches for comparison
-  - **Gradient Boosting Regressor**: Sequential ensemble of decision trees
-  - **Random Forest Regressor**: Parallel ensemble of decision trees  
-  - **Neural Network (MLPRegressor)**: Multi-layer perceptron for regression
-- **Features**: Sentiment scores + numerical features (rating, difficulty, etc.)
-- **Target**: Numerical grade values
-- **Performance**: Gradient Boosting achieved best results (RMSE: 0.254)
-
-### Feature Engineering & Data Processing
-
-#### **Text Processing Pipeline**
-1. **Text Cleaning**: Remove special characters, normalize whitespace
-2. **Tokenization**: Split text into individual words/tokens
-3. **Stop Word Removal**: Eliminate common words (the, and, is, etc.)
-4. **Lemmatization**: Reduce words to base form (running → run)
-5. **TF-IDF Vectorization**: Convert text to numerical features
-
-#### **Feature Engineering**
-- **Sentiment Features**: Probability scores from Stage 1 classifier
-- **Numerical Features**: Rating, difficulty, review count
-- **Aggregated Features**: Professor-level statistics (avg_rating, avg_difficulty)
-- **Interaction Features**: Combinations of sentiment and other variables
-
-### Model Training & Evaluation
-
-#### **Cross-Validation Strategy**
-- **Train/Test Split**: 80/20 split for model evaluation
-- **Hyperparameter Tuning**: Grid search for optimal parameters
-- **Feature Selection**: Analysis of feature importance and correlation
-
-#### **Evaluation Metrics**
-- **Classification**: Accuracy, Precision, Recall, F1-Score
-- **Regression**: RMSE (Root Mean Square Error), MAE (Mean Absolute Error), R² Score
-- **Model Comparison**: Statistical significance testing between models
-
-#### **Overfitting Prevention**
-- **Regularization**: L1/L2 regularization in neural networks
-- **Early Stopping**: Prevent overfitting in gradient boosting
-- **Cross-Validation**: Ensure robust performance estimates
-
-## 🛠️ Technologies & Libraries Used
-
-### Core Machine Learning & Data Science
-- **pandas (2.2.0)**: Data manipulation and analysis
-- **numpy (1.26.3)**: Numerical computing
-- **scikit-learn (1.4.0)**: Machine learning algorithms and utilities
-- **tensorflow (2.16.1)**: Deep learning framework for neural networks
-
-### Natural Language Processing
-- **nltk (3.8.1)**: Natural language processing toolkit
-- **transformers (4.37.2)**: State-of-the-art NLP models
-- **beautifulsoup4 (4.12.3)**: Web scraping for data collection
-
-### Data Visualization & Analysis
-- **matplotlib (3.8.2)**: Plotting and visualization
-- **seaborn (0.13.1)**: Statistical data visualization
-- **jupyter (1.0.0)**: Interactive notebooks for analysis
-
-### Web Scraping & Data Collection
-- **requests (2.31.0)**: HTTP library for data fetching
-- **selenium (4.18.1)**: Web automation for dynamic content
-- **webdriver-manager (4.0.1)**: Automated webdriver management
-
-## 📊 Methodology & Approach
-
-### 1. Data Collection & Preprocessing
-- **Source**: RateMyProfessor reviews from 5C Colleges dataset
-- **Data Types**: Structured (ratings, grades, difficulty) + Unstructured (review text)
-- **Preprocessing**: Text cleaning, sentiment labeling, feature engineering
-
-### 2. Sentiment Analysis Pipeline
-- **Model**: Naive Bayes classifier with TF-IDF vectorization
-- **Performance**: 80% accuracy, 88% F1-score on test data
-- **Output**: Sentiment probability scores for each review
-
-### 3. Predictive Modeling
-Three machine learning approaches were implemented and compared:
-
-| Model | Training RMSE | Test RMSE | Test MAE | Test R² | Key Advantage |
-|-------|---------------|-----------|----------|---------|---------------|
-| **Gradient Boosting** | 0.208 | 0.254 | 0.127 | -0.046 | Best overall performance |
-| Random Forest | ~0.098 | ~0.259 | ~0.144 | -0.085 | Good interpretability |
-| Neural Network | 0.232 | 0.280 | 0.178 | -0.266 | Complex pattern learning |
-
-### 4. Feature Engineering
-Key features used for grade prediction:
-- **sentiment_score**: Probability of positive sentiment (26% importance)
-- **rating**: Course rating (20% importance)
-- **avg_rating**: Professor's average rating (17% importance)
-- **avg_difficulty**: Professor's average difficulty (14% importance)
-- **difficulty**: Course difficulty (13% importance)
-- **review_count**: Number of reviews (10% importance)
-
-## 📁 Project Structure
-
-```
-RateMyProf_Sentiment_Analysis_to_Grade_Prediction/
-├── Project/
-│   ├── data/                    # Raw and processed datasets
-│   ├── datasets/                # Additional data sources
-│   ├── src/                     # Source code modules
-│   │   ├── data/               # Data collection and preprocessing
-│   │   ├── models/             # ML models and sentiment analysis
-│   │   └── visualization/      # Data visualization tools
-│   ├── models/                 # Saved model files and feature importances
-│   ├── visualizations/         # Random Forest output plots
-│   ├── visualizations_gb/      # Gradient Boosting output plots
-│   ├── visualizations_nn/      # Neural Network output plots
-│   ├── main.py                 # Random Forest pipeline
-│   ├── main_gb.py              # Gradient Boosting pipeline
-│   ├── main_nn.py              # Neural Network pipeline
-│   ├── FinalProjectCode.ipynb  # Comprehensive Jupyter notebook
-│   ├── project_report_*.txt    # Detailed analysis reports
-│   └── requirements.txt        # Project dependencies
-├── README.md                   # Project documentation
-└── .gitignore                 # Git ignore rules
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.8+
-- pip package manager
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd RateMyProf_Sentiment_Analysis_to_Grade_Prediction
-   ```
-
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   cd Project
-   pip install -r requirements.txt
-   ```
-
-## 🎯 Running the Analysis
-
-### Individual Model Pipelines
-
-**Gradient Boosting (Recommended):**
-```bash
-python3 main_gb.py
-```
-- **Outputs**: `models/grade_predictor_gb.pkl`, `feature_importance_gb.csv`, `visualizations_gb/`
-- **Report**: `project_report_gb.txt`
-
-**Random Forest:**
-```bash
-python3 main.py
-```
-- **Outputs**: `models/grade_predictor.pkl`, `feature_importance.csv`, `visualizations/`
-
-**Neural Network:**
-```bash
-python3 main_nn.py
-```
-- **Outputs**: `models/grade_predictor_nn.pkl`, `feature_importance_nn.csv`, `visualizations_nn/`
-- **Report**: `project_report_nn.txt`
-
-### Comprehensive Analysis
-For the complete analysis with all models and comparisons:
-```bash
-jupyter notebook FinalProjectCode.ipynb
-```
-
-## 📈 Key Findings & Learnings
-
-### What We Discovered
-
-1. **Sentiment Analysis Effectiveness**
-   - Achieved 80% accuracy in classifying review sentiment
-   - Sentiment scores are highly predictive of grade outcomes
-   - Text preprocessing significantly improves model performance
-
-2. **Feature Importance Insights**
-   - **Sentiment Score** (26%): Most critical predictor of grades
-   - **Course Rating** (20%): Strong correlation with academic outcomes
-   - **Professor Statistics** (avg_rating, avg_difficulty): Important contextual features
-
-3. **Model Performance Comparison**
-   - **Gradient Boosting** emerged as the best performer
-   - All models struggled with generalization (negative R²)
-   - Sentiment analysis adds significant predictive value
-
-### Technical Learnings
-
-1. **NLP in Educational Context**
-   - Text preprocessing is crucial for sentiment analysis
-   - TF-IDF vectorization works well for review classification
-   - Sentiment scores provide valuable numerical features
-
-2. **Machine Learning Insights**
-   - Ensemble methods (Gradient Boosting, Random Forest) outperform neural networks on this dataset
-   - Feature engineering significantly impacts model performance
-   - Interpretability is crucial for educational applications
-
-3. **Data Science Best Practices**
-   - Proper train/test splitting is essential
-   - Feature importance analysis provides actionable insights
-   - Visualization helps communicate complex relationships
-
-### Challenges & Limitations
-
-1. **Model Generalization**
-   - All models showed limited generalization (negative R²)
-   - Suggests need for more features or different modeling approaches
-
-2. **Data Quality**
-   - Class imbalance in sentiment labels
-   - Limited sample size for some departments
-   - Potential bias in self-reported data
-
-## 🔮 Future Work & Improvements
-
-### Potential Enhancements
-1. **Advanced NLP Techniques**
-   - BERT or other transformer models for better text understanding
-   - Aspect-based sentiment analysis
-   - Topic modeling for review categorization
-
-2. **Feature Engineering**
-   - Temporal features (semester, year trends)
-   - Interaction features between sentiment and other variables
-   - Department-specific modeling
-
-3. **Model Improvements**
-   - Ensemble methods combining multiple approaches
-   - Hyperparameter optimization
-   - Cross-validation strategies
-
-4. **Data Expansion**
-   - Larger, more diverse datasets
-   - Additional features (class size, prerequisites, etc.)
-   - Longitudinal data for trend analysis
-
-## 📚 Reports & Documentation
-
-- **`project_report_gb.txt`**: Detailed Gradient Boosting analysis
-- **`project_report_nn.txt`**: Neural Network implementation details
-- **`project_report_comparison.txt`**: Comprehensive model comparison
-- **`FinalProjectCode.ipynb`**: Complete analysis notebook
-
-## 🤝 Contributing
-
-This project demonstrates the application of machine learning and NLP in educational data mining. Feel free to:
-- Extend the analysis with additional models
-- Improve the feature engineering pipeline
-- Add new visualization capabilities
-- Explore different datasets or domains
-
-## 📄 License
-
-This project is for educational and research purposes. Please ensure proper attribution when using or building upon this work.
+</div>
 
 ---
 
-**Note**: This project successfully demonstrates the potential of sentiment analysis in educational contexts while highlighting the challenges of predicting complex outcomes like grades from review data alone. 
+## 📌 Overview
+
+This project explores a fundamental question in educational data mining:
+
+> **Can we predict student grades from the sentiment and content of professor reviews?**
+
+I built a **two-stage supervised learning pipeline** that:
+1. **Classifies sentiment** from review text using NLP techniques
+2. **Predicts grade outcomes** using ensemble regression models
+
+The project processes **3,395 real professor reviews** and implements **three different ML approaches** for comparative analysis.
+
+### 🎯 Key Technical Highlights
+
+| Skill Area | Implementation |
+|------------|----------------|
+| **NLP Pipeline** | Text preprocessing, TF-IDF vectorization, sentiment classification |
+| **ML Engineering** | Feature engineering, model training, hyperparameter configuration |
+| **Data Engineering** | ETL pipeline, train/test splitting, data validation |
+| **Software Design** | Modular architecture, OOP patterns, logging & error handling |
+| **Experimentation** | A/B model comparison, metrics evaluation, result visualization |
+
+---
+
+## 🏗 Architecture
+
+### System Design
+
+```mermaid
+flowchart TB
+    subgraph Data["📊 Data Layer"]
+        A[(Raw JSON<br/>3,395 reviews)] --> B[Data Collector]
+        B --> C[Train Set<br/>80%]
+        B --> D[Test Set<br/>20%]
+    end
+    
+    subgraph Processing["⚙️ Processing Layer"]
+        C --> E[Text Preprocessor]
+        D --> E
+        E --> |"Cleaned Text"| F[TF-IDF Vectorizer]
+    end
+    
+    subgraph ML["🤖 ML Layer"]
+        F --> G[Sentiment Classifier<br/>Naive Bayes]
+        G --> |"Sentiment Scores"| H[Feature Engineering]
+        H --> I{Grade Predictor}
+        I --> J[Random Forest]
+        I --> K[Gradient Boosting]
+        I --> L[Neural Network]
+    end
+    
+    subgraph Output["📈 Output Layer"]
+        J & K & L --> M[Model Evaluation]
+        M --> N[Visualizations]
+        M --> O[Saved Models]
+    end
+
+    style Data fill:#e1f5fe
+    style Processing fill:#fff3e0
+    style ML fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Pipeline Stages
+
+```mermaid
+graph LR
+    A[Raw Text] -->|clean| B[Lowercase]
+    B -->|regex| C[Remove Special Chars]
+    C -->|tokenize| D[Word Tokens]
+    D -->|filter| E[Remove Stopwords]
+    E -->|lemmatize| F[Base Forms]
+    F -->|vectorize| G[TF-IDF Matrix]
+    
+    style A fill:#ffcdd2
+    style G fill:#c8e6c9
+```
+
+---
+
+## 📂 Project Structure
+
+```
+RateMyProf_Sentiment_Analysis_to_Grade_Prediction/
+│
+├── Project/
+│   ├── main.py                    # Random Forest pipeline
+│   ├── main_gb.py                 # Gradient Boosting pipeline
+│   ├── main_nn.py                 # Neural Network pipeline
+│   │
+│   ├── src/
+│   │   ├── data/
+│   │   │   ├── data_collection.py     # ETL & data splitting
+│   │   │   └── preprocessing.py       # NLP text processing
+│   │   ├── models/
+│   │   │   ├── sentiment_analysis.py      # Naive Bayes classifier
+│   │   │   ├── predictive_modeling.py     # Random Forest regressor
+│   │   │   ├── predictive_modeling_gb.py  # Gradient Boosting regressor
+│   │   │   └── predictive_modeling_nn.py  # MLP Neural Network
+│   │   └── visualization/
+│   │       └── visualization.py       # Plotting & analysis
+│   │
+│   ├── data/
+│   │   ├── raw/                   # Train/test CSVs
+│   │   └── processed/             # Cleaned datasets
+│   │
+│   ├── models/                    # Serialized model artifacts
+│   ├── visualizations/            # Generated plots
+│   └── requirements.txt
+│
+└── README.md
+```
+
+---
+
+## 🔬 Technical Implementation
+
+### Stage 1: Sentiment Classification
+
+**Objective:** Classify review sentiment as positive or negative
+
+| Component | Choice | Rationale |
+|-----------|--------|-----------|
+| **Vectorization** | TF-IDF (5,000 features) | Captures term importance while reducing dimensionality |
+| **Classifier** | Multinomial Naive Bayes | Fast training, works well with sparse text data |
+| **Labels** | Binary (rating ≥ 3.5 → positive) | Clear threshold for sentiment polarity |
+
+```python
+# Simplified pipeline example
+vectorizer = TfidfVectorizer(max_features=5000)
+X = vectorizer.fit_transform(cleaned_reviews)
+model = MultinomialNB()
+model.fit(X_train, y_train)
+```
+
+### Stage 2: Grade Prediction
+
+**Objective:** Predict numerical grade (0.0-4.0 GPA scale) from features
+
+| Model | Algorithm | Configuration |
+|-------|-----------|---------------|
+| **Random Forest** | Parallel ensemble | 100 trees, default depth |
+| **Gradient Boosting** | Sequential ensemble | 100 estimators, learning rate optimization |
+| **Neural Network** | MLP Regressor | 2 hidden layers (64 → 32 neurons) |
+
+### Feature Engineering
+
+```mermaid
+mindmap
+  root((Features))
+    Review Level
+      sentiment_score
+      rating
+      difficulty
+    Professor Level
+      avg_rating
+      avg_difficulty
+      review_count
+```
+
+---
+
+## 📊 Results
+
+### Sentiment Classification Performance
+
+| Metric | Training | Test |
+|--------|----------|------|
+| **Accuracy** | 73.7% | **80.0%** |
+| **F1 Score** | 84.5% | **88.8%** |
+| **Precision** | 78.2% | 85.3% |
+| **Recall** | 92.1% | 92.7% |
+
+> ✅ **Strong performance** — The sentiment model generalizes well to unseen data, with the test set actually outperforming training (indicating good regularization).
+
+### Grade Prediction Performance
+
+| Model | Train RMSE | Test RMSE | Test MAE | Test R² |
+|-------|------------|-----------|----------|---------|
+| Gradient Boosting | 0.208 | 0.254 | 0.127 | -0.046 |
+| Random Forest | 0.098 | 0.259 | 0.144 | -0.085 |
+| Neural Network | 0.232 | 0.280 | 0.178 | -0.266 |
+
+### Feature Importance (Gradient Boosting)
+
+```
+sentiment_score  ████████████████████████████  26.2%
+rating           ████████████████████         20.4%
+avg_rating       █████████████████            16.7%
+avg_difficulty   █████████████                13.6%
+difficulty       ████████████                 12.7%
+review_count     ██████████                   10.4%
+```
+
+### Honest Analysis
+
+> ⚠️ **Key Finding:** While sentiment classification achieved strong results, grade prediction proved to be a significantly harder problem. The negative R² values indicate that predicting grades solely from review data is insufficient.
+
+**Why this matters (and why I'm sharing it):**
+- Real ML projects often reveal that initial hypotheses don't hold
+- The signal-to-noise ratio in self-reported grades is inherently high
+- This demonstrates the importance of understanding model limitations
+- Future work could incorporate additional features (course type, year, etc.)
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.8+
+- pip
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/RateMyProf_Sentiment_Analysis_to_Grade_Prediction.git
+cd RateMyProf_Sentiment_Analysis_to_Grade_Prediction/Project
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Run the Pipeline
+
+```bash
+# Run Gradient Boosting pipeline (recommended)
+python main_gb.py
+
+# Or try other models
+python main.py      # Random Forest
+python main_nn.py   # Neural Network
+```
+
+### Output
+- **Models:** `models/*.pkl`
+- **Visualizations:** `visualizations_gb/*.png`
+- **Metrics:** Logged to console
+
+---
+
+## 🛠 Tech Stack
+
+| Category | Technologies |
+|----------|-------------|
+| **Core** | Python 3.8+, NumPy, Pandas |
+| **ML/AI** | scikit-learn (Naive Bayes, Random Forest, Gradient Boosting, MLP) |
+| **NLP** | NLTK (tokenization, lemmatization, stopwords), TF-IDF |
+| **Visualization** | Matplotlib, Seaborn |
+| **Data** | JSON parsing, CSV processing |
+
+---
+
+## 💡 Key Learnings
+
+### Technical Skills Demonstrated
+
+1. **End-to-End ML Pipeline Development**
+   - Data ingestion → preprocessing → training → evaluation → serialization
+
+2. **NLP Text Processing**
+   - Implemented full preprocessing pipeline: cleaning, tokenization, lemmatization, vectorization
+
+3. **Comparative Model Analysis**
+   - Built three parallel implementations to evaluate trade-offs between algorithms
+
+4. **Feature Engineering**
+   - Created derived features from raw data (professor-level aggregations)
+
+5. **Software Engineering Best Practices**
+   - Modular design with clear separation of concerns
+   - Comprehensive logging and error handling
+   - Type hints and documentation
+
+### Research Insights
+
+- **Sentiment is predictive** — Sentiment scores emerged as the #1 feature for grade prediction
+- **Ensemble methods outperform neural networks** on tabular data with limited samples
+- **Problem framing matters** — Grade prediction may require additional contextual features (course type, semester, etc.)
+
+---
+
+## 📈 Sample Visualizations
+
+<details>
+<summary>Click to expand visualization examples</summary>
+
+| Visualization | Description |
+|--------------|-------------|
+| `sentiment_distribution.png` | Histogram of sentiment score distribution |
+| `grade_correlation.png` | Scatter plot: sentiment vs. grade |
+| `feature_importance.png` | Bar chart of model feature weights |
+| `correlation_matrix.png` | Heatmap of feature correlations |
+| `department_comparison.png` | Box plot of ratings by department |
+
+</details>
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] Add temporal features (semester, year trends)
+- [ ] Experiment with transformer-based embeddings (BERT)
+- [ ] Address class imbalance in sentiment labels
+- [ ] Incorporate additional data sources (course difficulty, prerequisites)
+- [ ] Build interactive web dashboard for predictions
+
+---
+
+## 📄 License
+
+This project is for educational and portfolio purposes. Feel free to use it as a reference for your own projects.
+
+---
+
+<div align="center">
+
+**Built with 🎯 focus on clean code and honest analysis**
+
+*Questions? Feel free to reach out!*
+
+</div>
+]]>
