@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🎓 RateMyProfessor Sentiment Analysis & Grade Prediction
 
@@ -231,7 +231,7 @@ review_count     ██████████                   10.4%
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/RateMyProf_Sentiment_Analysis_to_Grade_Prediction.git
+git clone https://github.com/Mark-Malysa/RateMyProf_Sentiment_Analysis_to_Grade_Prediction.git
 cd RateMyProf_Sentiment_Analysis_to_Grade_Prediction/Project
 
 # Create virtual environment
@@ -341,4 +341,3 @@ This project is for educational and portfolio purposes. Feel free to use it as a
 *Questions? Feel free to reach out!*
 
 </div>
-]]>
