@@ -113,4 +113,4 @@ We validated the logic against edge cases to ensure "Common Sense" AI:
 - [ ] **Course Catalog**: Dropdown to select specific courses (CS101, PHY202).
 
 ## 👨‍💻 Author
-Built by [Your Name] as a showcase of Full-Stack AI Engineering.
+Built by Mark Malysa as a showcase of Full-Stack AI Engineering.
