@@ -34,7 +34,8 @@ export function PredictionForm() {
         setResult(null)
 
         try {
-            const response = await fetch("http://localhost:8000/api/predict", {
+            // Use relative path - handled by next.config.ts rewrites locally and vercel.json in prod
+            const response = await fetch("/api/predict", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
